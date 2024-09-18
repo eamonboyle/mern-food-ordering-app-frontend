@@ -101,6 +101,12 @@ export const useUpdateRestaurant = () => {
 export const useSearchRestaurants = (searchState: SearchState, city?: string) => {
     const params = new URLSearchParams();
     params.set("searchQuery", searchState.searchQuery);
+    params.set("page", searchState.page.toString());
+    params.set(
+        "selectedCuisines",
+        searchState.selectedCuisines.map((cuisine) => encodeURIComponent(cuisine)).join(",")
+    );
+    params.set("sortOption", searchState.sortOption);
 
     const searchRestaurantsRequest = async (): Promise<RestaurantSearchResponse> => {
         const response = await fetch(`${API_BASE_URL}/restaurant/search/${city}?${params.toString()}`, {
