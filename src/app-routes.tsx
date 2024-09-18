@@ -4,7 +4,7 @@ import Layout from "./layouts/layout";
 import HomePage from "./pages/home-page";
 import AuthCallbackPage from "./pages/auth-callback-page";
 import ProtectedRoute from "./auth/protected-route";
-import LoadingSpinner from "./components/loading-spinner"; // You'll need to create this component
+import LoadingSpinner from "./components/loading-spinner";
 
 const UserProfilePage = React.lazy(() => import("./pages/user-profile-page"));
 const ManageRestaurantPage = React.lazy(() => import("./pages/manage-restaurant-page"));

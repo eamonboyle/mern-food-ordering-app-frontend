@@ -19,7 +19,6 @@ const SearchPage = () => {
         isExpanded,
         searchState,
         results,
-        isLoading,
         handleCuisineChange,
         handlePageChange,
         handleSortOptionChange,
@@ -28,7 +27,6 @@ const SearchPage = () => {
         toggleExpanded,
     } = useSearchPageLogic();
 
-    if (isLoading) return <div>Loading...</div>;
     if (!results?.data || !city) return <span>No results found</span>;
 
     return (

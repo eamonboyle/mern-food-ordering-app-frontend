@@ -3,15 +3,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RestaurantForm from "@/forms/manage-restaurant-form/restaurant-form";
 
 const ManageRestaurantPage = () => {
-    const { restaurant, isLoading } = useGetRestaurant();
+    const { restaurant } = useGetRestaurant();
     const { createRestaurant, isLoading: isCreateLoading } = useCreateRestaurant();
     const { updateRestaurant, isLoading: isUpdateLoading } = useUpdateRestaurant();
 
     const isEditing = !!restaurant;
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <Tabs defaultValue="orders" className="px-5 lg:px-0">
