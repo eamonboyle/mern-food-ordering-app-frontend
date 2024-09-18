@@ -1,4 +1,5 @@
 import CuisineFilter from "@/components/cuisine-filter";
+import LoadingSpinner from "@/components/loading-spinner";
 import PaginationSelector from "@/components/pagination-selector";
 import SearchBar from "@/components/search-bar";
 import SearchResultInfo from "@/components/search-result-info";
@@ -19,6 +20,7 @@ const SearchPage = () => {
         isExpanded,
         searchState,
         results,
+        isLoading,
         handleCuisineChange,
         handlePageChange,
         handleSortOptionChange,
@@ -50,9 +52,17 @@ const SearchPage = () => {
                     <SearchResultInfo total={results.pagination.total} city={city} />
                     <SortDropdown sortOption={searchState.sortOption} onChange={handleSortOptionChange} />
                 </div>
-                {results.data.map((restaurant) => (
-                    <SearchResultsCard key={restaurant._id} restaurant={restaurant} />
-                ))}
+
+                {isLoading ? (
+                    <LoadingSpinner />
+                ) : (
+                    <>
+                        {results.data.map((restaurant) => (
+                            <SearchResultsCard key={restaurant._id} restaurant={restaurant} />
+                        ))}
+                    </>
+                )}
+
                 <PaginationSelector
                     page={searchState.page}
                     totalPages={results.pagination.pages}
