@@ -6,6 +6,27 @@ import { toast } from "sonner";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+export const useGetRestaurantById = (restaurantId?: string) => {
+    const getRestaurantByIdRequest = async (): Promise<Restaurant> => {
+        const response = await fetch(`${API_BASE_URL}/restaurant/${restaurantId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to get restaurant");
+        }
+
+        return response.json();
+    };
+
+    const { data: restaurant, isLoading } = useQuery(["fetchRestaurantById", restaurantId], getRestaurantByIdRequest);
+
+    return { restaurant, isLoading };
+};
+
 export const useGetRestaurant = () => {
     const { getAccessTokenSilently } = useAuth0();
 
