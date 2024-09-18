@@ -1,11 +1,14 @@
+import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layouts/layout";
 import HomePage from "./pages/home-page";
 import AuthCallbackPage from "./pages/auth-callback-page";
-import UserProfilePage from "./pages/user-profile-page";
 import ProtectedRoute from "./auth/protected-route";
-import ManageRestaurantPage from "./pages/manage-restaurant-page";
-import SearchPage from "./pages/search-page";
+import LoadingSpinner from "./components/loading-spinner"; // You'll need to create this component
+
+const UserProfilePage = React.lazy(() => import("./pages/user-profile-page"));
+const ManageRestaurantPage = React.lazy(() => import("./pages/manage-restaurant-page"));
+const SearchPage = React.lazy(() => import("./pages/search-page"));
 
 const AppRoutes = () => {
     return (
@@ -23,7 +26,9 @@ const AppRoutes = () => {
                 path="/search/:city"
                 element={
                     <Layout>
-                        <SearchPage />
+                        <Suspense fallback={<LoadingSpinner />}>
+                            <SearchPage />
+                        </Suspense>
                     </Layout>
                 }
             />
@@ -33,7 +38,9 @@ const AppRoutes = () => {
                     path="/user-profile"
                     element={
                         <Layout>
-                            <UserProfilePage />
+                            <Suspense fallback={<LoadingSpinner />}>
+                                <UserProfilePage />
+                            </Suspense>
                         </Layout>
                     }
                 />
@@ -41,7 +48,9 @@ const AppRoutes = () => {
                     path="/manage-restaurant"
                     element={
                         <Layout>
-                            <ManageRestaurantPage />
+                            <Suspense fallback={<LoadingSpinner />}>
+                                <ManageRestaurantPage />
+                            </Suspense>
                         </Layout>
                     }
                 />

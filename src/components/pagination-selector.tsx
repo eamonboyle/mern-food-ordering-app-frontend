@@ -14,44 +14,26 @@ interface Props {
 }
 
 const PaginationSelector = ({ page, totalPages, onPageChange }: Props) => {
-    const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-
     return (
         <Pagination>
             <PaginationContent>
                 {page > 1 && (
                     <PaginationItem>
-                        <PaginationPrevious
-                            href="#"
-                            onClick={() => {
-                                onPageChange(page - 1);
-                            }}
-                        />
+                        <PaginationPrevious href="#" onClick={() => onPageChange(page - 1)} />
                     </PaginationItem>
                 )}
 
-                {pageNumbers.map((pageNumber) => (
-                    <PaginationItem key={pageNumber}>
-                        <PaginationLink
-                            href="#"
-                            isActive={pageNumber === page}
-                            onClick={() => {
-                                onPageChange(pageNumber);
-                            }}
-                        >
-                            {pageNumber}
+                {[...Array(totalPages)].map((_, index) => (
+                    <PaginationItem key={index + 1}>
+                        <PaginationLink href="#" isActive={index + 1 === page} onClick={() => onPageChange(index + 1)}>
+                            {index + 1}
                         </PaginationLink>
                     </PaginationItem>
                 ))}
 
                 {page < totalPages && (
                     <PaginationItem>
-                        <PaginationNext
-                            href="#"
-                            onClick={() => {
-                                onPageChange(page + 1);
-                            }}
-                        />
+                        <PaginationNext href="#" onClick={() => onPageChange(page + 1)} />
                     </PaginationItem>
                 )}
             </PaginationContent>
